@@ -1,0 +1,35 @@
+<form class="mt-5" id="brandList">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Начните набирать и выберите из списка" list="brandDatalist"
+      multiple name="search">
+    <div class="input-group-append">
+
+    </div>
+  </div>
+</form>
+
+<datalist id="brandDatalist">
+  {{#each brands}}
+  <option id="{{brand_id}}" value="{{name}}">
+    {{/each}}
+</datalist>
+
+<form class="mt-4" id="modelsList" style="display: none">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Начните набирать и выберите из списка" list="modelsDatalist"
+      multiple name="search">
+    <div class="input-group-append">
+
+    </div>
+  </div>
+</form>
+
+<datalist id="modelsDatalist">
+  <option id="{{brand_id}}" value="{{name}}">
+</datalist>
+
+<div id="info" class="mt-5">
+
+</div>
+
+<script defer src="/js/search.js"></script>

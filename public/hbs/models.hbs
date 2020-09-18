@@ -1,0 +1,85 @@
+<div>
+  <h1 class="mt-5">{{name}}</h1>
+
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <ul class="nav nav-pills nav-pills-warning flex-column">
+        {{#if photos}}
+        <li class="nav-item"><a class="nav-link active" href="#tabPhotos" data-toggle="tab">Изображения</a></li>
+        {{/if}}
+        {{#each items}}
+        <li class="nav-item"><a class="nav-link {{#unless ../photos}}{{#unless @index}}active{{/unless}}{{/unless}}"
+            href="#tab{{@index}}" data-toggle="tab">{{name}}</a></li>
+        {{/each}}
+        {{#if price}}
+        <li class="nav-item"><a class="nav-link" href="#tabPrice" data-toggle="tab">Минимальная цена в Москве</a></li>
+        {{/if}}
+      </ul>
+    </div>
+    <div class="col-md-8">
+      <div class="tab-content">
+        {{#if photos}}
+        <div class="tab-pane active" id="tabPhotos" style="max-width: 500px; max-height: 500px;">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              {{#each photos}}
+              <li class="bg-warning" data-target="#carouselExampleIndicators" data-slide-to="{{@index}}"
+                {{#unless @index}}class="active" {{/unless}}></li>
+              {{/each}}
+            </ol>
+            <div class="carousel-inner">
+              {{#each photos}}
+              <div class="carousel-item {{#unless @index}}active{{/unless}}">
+                <img class="d-block w-100" src="{{this.[8].url}}" alt="{{@index}} slide">
+              </div>
+              {{/each}}
+            </div>
+            <a class="carousel-control-prev bg-warning" href="#carouselExampleIndicators" role="button"
+              data-slide="prev" style="border-radius: 5px; width: 40px; height: 60px; top: 40%;">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next bg-warning" href="#carouselExampleIndicators" role="button"
+              data-slide="next" style="border-radius: 5px; width: 40px; height: 60px; top: 40%;">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          </table>
+        </div>
+        {{/if}}
+
+        {{#each items}}
+        <div class="tab-pane {{#unless ../photos}}{{#unless @index}}active{{/unless}}{{/unless}}" id="tab{{@index}}">
+          <table class="table table-striped">
+            <tbody>
+              {{#each subspecs}}
+              <tr>
+                <th>{{name}}</th>
+                <td>{{value}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        {{/each}}
+        {{#if price}}
+        <div class="tab-pane" id="tabPrice">
+          <table class="table table-striped">
+            <tbody>
+              <tr>
+                <th>Минимальная цена в Москве</th>
+                <td>{{price}} рублей.</td>
+              </tr>
+              <tr>
+                <th>Дата последнего обновления цены</th>
+                <td>{{priceUpdated}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
