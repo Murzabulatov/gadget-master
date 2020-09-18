@@ -1,8 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const fetch = require('node-fetch');
 const FormData = require('form-data');
-const Category = require('../models/category.js');
 const Brand = require('../models/brand.js');
 
 const router = express.Router();
@@ -33,15 +31,20 @@ router.post('/models/:id', async (req, res) => {
   const priceUrl = 'https://market-scanner.ru/api/price';
 
   async function getData(url) {
-    const body = new FormData();
-    body.append('key', process.env.API_KEY);
-    body.append('id', req.params.id);
-    const data = await fetch(url, {
-      method: 'POST',
-      body,
-      redirect: 'follow',
-    });
-    return data.json();
+    try {
+      const body = new FormData();
+      body.append('key', process.env.API_KEY);
+      body.append('id', req.params.id);
+      const data = await fetch(url, {
+        method: 'POST',
+        body,
+        redirect: 'follow',
+      });
+      return data.json();
+    } catch (err) {
+      console.log(err);
+      res.end();
+    }
   }
   res.json({
     items: await getData(infoUrl),
