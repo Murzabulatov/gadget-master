@@ -4,6 +4,11 @@ const modelsList = document.getElementById('modelsList');
 const modelsDatalist = document.getElementById('modelsDatalist');
 const info = document.getElementById('info');
 
+const spinner = `<div class="d-flex justify-content-center">
+<div class="spinner-border text-warning" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+</div>`;
 
 brandList.addEventListener('submit', (event) => event.preventDefault());
 
@@ -31,7 +36,7 @@ brandList.elements.search.addEventListener('input', async (event) => {
     const body = {
       id: categoryId,
     };
-
+    info.innerHTML = spinner;
     const response = await fetch('/models', {
       method: 'POST',
       headers: {
@@ -40,6 +45,7 @@ brandList.elements.search.addEventListener('input', async (event) => {
       body: JSON.stringify(body),
     });
     response.json().then((data) => {
+      info.innerHTML = '';
       modelsList.style.display = 'block';
       data.forEach((item) => {
         modelsDatalist.insertAdjacentHTML('afterbegin', `<option id="${item.id}" value="${item.name}">`);
@@ -56,6 +62,7 @@ brandList.elements.search.addEventListener('input', async (event) => {
 modelsList.elements.search.addEventListener('input', async (event) => {
   const modelId = modelsDatalist.querySelector(`[value="${(event.target.value)}"]`)?.id;
   if (flag && modelId) {
+    info.innerHTML = spinner;
     const response = await fetch(`/models/${modelId}`, {
       method: 'POST',
       headers: {
@@ -63,7 +70,7 @@ modelsList.elements.search.addEventListener('input', async (event) => {
       },
     });
     const modelRender = await response.json();
-    console.log(modelRender);
+    info.innerHTML = '';
     const result = await renderHbs(modelRender);
     info.insertAdjacentHTML('beforeend', result);
   } else {
