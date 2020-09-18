@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js --ignore sessions"
+    "test": "nodemon app.js --ignore sessions",
+    "start": "node app.js"
   },
   "author": "Salavat Murzabulatov",
   "license": "ISC",
