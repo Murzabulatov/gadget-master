@@ -12,7 +12,7 @@ const spinner = `<div class="d-flex justify-content-center">
 
 brandList.addEventListener('submit', (event) => event.preventDefault());
 
-let flag = true;
+const flag = true;
 
 const renderHbs = async (data) => {
   const url = '/hbs/models.hbs';
@@ -74,7 +74,6 @@ modelsList.elements.search.addEventListener('input', async (event) => {
     const result = await renderHbs(modelRender);
     info.insertAdjacentHTML('beforeend', result);
   } else {
-
     info.innerHTML = '';
   }
 });
